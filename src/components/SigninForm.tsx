@@ -1,5 +1,7 @@
 'use client'
 import * as React from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -9,13 +11,26 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 
 export default function SigninForm() {
+  const router = useRouter()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    alert(
+      JSON.stringify({
+        email: data.get('email'),
+        password: data.get('password'),
+      }),
+    )
+    signIn('credentials', {
+      redirect: false,
+      ...data,
     })
+      .then(() => {
+        router.push('/')
+      })
+      .catch(() => {
+        alert('Login Error')
+      })
   }
   return (
     <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

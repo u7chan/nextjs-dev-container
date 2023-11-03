@@ -1,13 +1,14 @@
 import * as React from 'react'
 import ThemeRegistry from '@/themes/ThemeRegistry'
-import AdminLayout from '@/components/AdminLayout'
+import { SessionProvider } from '@/auth/SessionProvider'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const isloggedIn = true // TODO: auth check
   return (
     <html lang='en'>
       <body>
-        <ThemeRegistry>{isloggedIn ? <AdminLayout>{children}</AdminLayout> : <>{children}</>}</ThemeRegistry>
+        <ThemeRegistry>
+          <SessionProvider>{children}</SessionProvider>
+        </ThemeRegistry>
       </body>
     </html>
   )
