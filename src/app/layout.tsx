@@ -34,9 +34,9 @@ const LINKS = [
 ]
 
 const PLACEHOLDER_LINKS = [
-  { text: 'Settings', icon: SettingsIcon },
-  { text: 'Support', icon: SupportIcon },
-  { text: 'Logout', icon: LogoutIcon },
+  { text: 'Settings', href: '/', icon: SettingsIcon },
+  { text: 'Support', href: '/', icon: SupportIcon },
+  { text: 'Logout', href: '/signin', icon: LogoutIcon },
 ]
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -82,9 +82,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </List>
             <Divider sx={{ mt: 'auto' }} />
             <List>
-              {PLACEHOLDER_LINKS.map(({ text, icon: Icon }) => (
-                <ListItem key={text} disablePadding>
-                  <ListItemButton>
+              {PLACEHOLDER_LINKS.map(({ text, href, icon: Icon }) => (
+                <ListItem key={href} disablePadding>
+                  <ListItemButton component={Link} href={href}>
                     <ListItemIcon>
                       <Icon />
                     </ListItemIcon>
