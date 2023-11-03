@@ -2,4 +2,4 @@
 
 ## Architectures
 
-Next.js + MUI + Dev Container
+`Next.js (App Router)` + `MUI` + `NextAuth.js` + `Dev Container`
