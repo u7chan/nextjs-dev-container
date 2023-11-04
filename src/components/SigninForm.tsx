@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react'
-import { signIn } from 'next-auth/react'
+import { type SignInResponse, signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
@@ -9,8 +9,10 @@ import Checkbox from '@mui/material/Checkbox'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
+import FormHelperText from '@mui/material/FormHelperText'
 
 export default function SigninForm() {
+  const [errorText, setErrorText] = React.useState('')
   const router = useRouter()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -23,11 +25,15 @@ export default function SigninForm() {
       redirect: false,
       ...data,
     })
-      .then(() => {
+      .then((res) => {
+        if (!res || res?.error) {
+          setErrorText('Authentication failed.')
+          return
+        }
         router.push('/')
       })
       .catch(() => {
-        alert('Login Error')
+        setErrorText('System error.')
       })
   }
   return (
@@ -53,6 +59,7 @@ export default function SigninForm() {
         autoComplete='current-password'
       />
       <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
+      <FormHelperText error={true}>{errorText}</FormHelperText>
       <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
         Sign In
       </Button>

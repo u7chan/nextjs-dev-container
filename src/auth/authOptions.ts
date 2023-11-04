@@ -19,7 +19,8 @@ const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, _req) {
         if (!credentials?.email || !credentials?.password) return null
-        console.log('#authorize', { email: credentials.email, password: credentials.password })
+        const isLoggedIn = credentials.email === 'test' && credentials.password === 'hoge' // dummy auth
+        if (!isLoggedIn) return null
         const user: UserSession = {
           id: crypto.randomUUID(),
           companyId: crypto.randomUUID(),
