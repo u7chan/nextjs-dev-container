@@ -18,7 +18,6 @@ import ChecklistIcon from '@mui/icons-material/Checklist'
 import SettingsIcon from '@mui/icons-material/Settings'
 import SupportIcon from '@mui/icons-material/Support'
 import LogoutIcon from '@mui/icons-material/Logout'
-import ThemeRegistry from '@/themes/ThemeRegistry'
 
 export const metadata = {
   title: 'Next.js App Router + Material UI v5',
@@ -36,7 +35,7 @@ const LINKS = [
 const PLACEHOLDER_LINKS = [
   { text: 'Settings', href: '/', icon: SettingsIcon },
   { text: 'Support', href: '/', icon: SupportIcon },
-  { text: 'Logout', href: '/signin', icon: LogoutIcon },
+  { text: 'Logout', href: '/signout', icon: LogoutIcon },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
