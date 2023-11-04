@@ -14,13 +14,11 @@ export default function SigninForm() {
   const router = useRouter()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    alert(
-      JSON.stringify({
-        email: data.get('email'),
-        password: data.get('password'),
-      }),
-    )
+    const formData = new FormData(event.currentTarget)
+    const data = {
+      email: formData.get('email'),
+      password: formData.get('password'),
+    }
     signIn('credentials', {
       redirect: false,
       ...data,
