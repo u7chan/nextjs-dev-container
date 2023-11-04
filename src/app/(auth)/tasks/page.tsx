@@ -14,7 +14,7 @@ export default function TasksPage() {
           alignItems: 'center',
         }}
       >
-        <Typography variant='body1' gutterBottom>
+        <Typography variant='h5' gutterBottom>
           Tasks Page
         </Typography>
       </Box>

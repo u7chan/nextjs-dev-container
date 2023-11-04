@@ -1,7 +1,9 @@
 import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import crypto from 'crypto'
+import { UserSession } from './UserSession'
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
@@ -17,8 +19,9 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         console.log('#authorize', { credentials, req })
-        const user = {
-          id: 'dummy',
+        const user: UserSession = {
+          id: crypto.randomUUID(),
+          name: 'dummy dummy',
           email: 'dummy@example.com',
         }
         return user
@@ -27,7 +30,6 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     jwt: async ({ token, user, account }) => {
-      console.log('#callbacks.jst', { token, user, account })
       if (user) {
         token.user = user
         token.id = user.id
@@ -38,7 +40,6 @@ export const authOptions: NextAuthOptions = {
       return token
     },
     session: ({ session, token }) => {
-      console.log('#callbacks.session', { session, token })
       return {
         ...session,
         user: {
@@ -49,3 +50,5 @@ export const authOptions: NextAuthOptions = {
     },
   },
 }
+
+export default authOptions
