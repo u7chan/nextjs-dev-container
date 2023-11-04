@@ -22,6 +22,7 @@ export default async function StarredPage() {
         </Typography>
         <Box>
           <Typography variant='body1'>User Id: {userSession.id}</Typography>
+          <Typography variant='body1'>Company Id: {userSession.companyId}</Typography>
           <Typography variant='body1'>User Name: {userSession.name}</Typography>
           <Typography variant='body1'>User Email: {userSession.email}</Typography>
         </Box>
