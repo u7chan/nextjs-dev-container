@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { redirect } from 'next/navigation'
 import Avatar from '@mui/material/Avatar'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
@@ -7,8 +8,13 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import SigninForm from '@/components/SigninForm'
 import Copyright from '@/components/Copyright'
+import { getUserSession } from '@/auth/getUserSession'
 
-export default function Page() {
+export default async function Page() {
+  const userSession = await getUserSession()
+  if (userSession) {
+    redirect('/')
+  }
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
