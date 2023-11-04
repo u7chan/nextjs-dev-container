@@ -66,8 +66,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       >
         <Divider />
         <List>
-          {LINKS.map(({ text, href, icon: Icon }) => (
-            <ListItem key={href} disablePadding>
+          {LINKS.map(({ text, href, icon: Icon }, index) => (
+            <ListItem key={`${index}_${href}`} disablePadding>
               <ListItemButton component={Link} href={href}>
                 <ListItemIcon>
                   <Icon />
@@ -79,8 +79,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </List>
         <Divider sx={{ mt: 'auto' }} />
         <List>
-          {PLACEHOLDER_LINKS.map(({ text, href, icon: Icon }) => (
-            <ListItem key={href} disablePadding>
+          {PLACEHOLDER_LINKS.map(({ text, href, icon: Icon }, index) => (
+            <ListItem key={`${index}_${href}`} disablePadding>
               <ListItemButton component={Link} href={href}>
                 <ListItemIcon>
                   <Icon />
