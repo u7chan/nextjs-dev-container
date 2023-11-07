@@ -4,6 +4,9 @@
   "name": "Dev-Container",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "build": { "dockerfile": "./Dockerfile" },
+  "mounts": [
+    { "type": "volume", "source": "dev-container-node_modules", "target": "${containerWorkspaceFolder}/node_modules" }
+  ],
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
