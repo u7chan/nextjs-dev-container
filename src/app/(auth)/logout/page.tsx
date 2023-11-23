@@ -7,7 +7,7 @@ export default function Page() {
   const router = useRouter()
   useEffect(() => {
     signOut()
-    router.push('/signin')
+    router.push('/login')
   }, [router])
   return <></>
 }

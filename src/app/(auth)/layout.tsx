@@ -5,6 +5,6 @@ import AdminLayout from '@/components/AdminLayout'
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(options)
-  if (!session) redirect('/signin')
+  if (!session) redirect('/login')
   return <AdminLayout>{children}</AdminLayout>
 }
