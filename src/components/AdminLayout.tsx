@@ -34,7 +34,7 @@ const LINKS = [
 const PLACEHOLDER_LINKS = [
   { text: 'Settings', href: '/', icon: SettingsIcon },
   { text: 'Support', href: '/', icon: SupportIcon },
-  { text: 'Logout', href: '/', icon: LogoutIcon },
+  { text: 'Logout', href: '/api/auth/signout', icon: LogoutIcon },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

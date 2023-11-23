@@ -32,8 +32,9 @@ export default function LoginForm() {
         }
         router.push('/')
       })
-      .catch(() => {
-        setErrorText('System error.')
+      .catch((e) => {
+        console.error(e)
+        setErrorText(`Unhandled error: ${e.message}`)
       })
   }
   return (

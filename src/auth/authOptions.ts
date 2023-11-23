@@ -13,6 +13,11 @@ const authOptions: NextAuthOptions = {
     logo: '/images/next.svg', // Absolute URL to image
     buttonText: '#0000ff', // Hex color code
   },
+  callbacks: {
+    redirect: ({ baseUrl }) => {
+      return `${baseUrl}/starred`
+    },
+  },
   providers: [
     CredentialsProvider({
       name: 'credentials',
