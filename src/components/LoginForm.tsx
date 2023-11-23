@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import {  signIn } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
@@ -65,7 +65,7 @@ export default function LoginForm() {
       </Button>
       <Grid container>
         <Grid item xs>
-          <Link href='#' variant='body2'>
+          <Link href='/forgot-password' variant='body2'>
             Forgot password?
           </Link>
         </Grid>
