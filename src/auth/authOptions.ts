@@ -1,14 +1,6 @@
-import type { NextAuthOptions } from 'next-auth'
+import type { NextAuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import crypto from 'crypto'
-
-export type UserSession = {
-  id: string
-  companyId: string
-  name: string
-  email: string
-  image?: string
-}
 
 const authOptions: NextAuthOptions = {
   session: {
@@ -26,11 +18,9 @@ const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, _req) {
         if (!credentials?.email || !credentials?.password) return null
-        const isLoggedIn = credentials.email === 'test' && credentials.password === 'hoge' // dummy auth
-        if (!isLoggedIn) return null
-        const user: UserSession = {
+        if (!(credentials.email === 'test' && credentials.password === 'hoge')) return null
+        const user: User = {
           id: crypto.randomUUID(),
-          companyId: crypto.randomUUID(),
           name: 'dummy dummy',
           email: 'dummy@example.com',
         }
@@ -38,29 +28,6 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  callbacks: {
-    jwt: async ({ token, user, account }) => {
-      if (user) {
-        token.user = user
-        token.id = user.id
-      }
-      if (account) {
-        token.accessToken = account.access_token
-      }
-      return token
-    },
-    session: ({ session, token }) => {
-      const tokenInUser = token.user as UserSession
-      const newSession = {
-        ...session,
-        user: {
-          ...tokenInUser,
-          ...session.user,
-        },
-      }
-      return newSession
-    },
-  },
 }
 
 export default authOptions
