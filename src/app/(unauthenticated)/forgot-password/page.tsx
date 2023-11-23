@@ -1,4 +1,5 @@
 'use client'
+import { FormEvent } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
@@ -8,8 +9,8 @@ import Copyright from '@/components/Copyright'
 import Link from '@mui/material/Link'
 
 export default function Page() {
-  const handleSubmit = () => {
-    //
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
   }
   return (
     <Container component='main' maxWidth='xs'>
