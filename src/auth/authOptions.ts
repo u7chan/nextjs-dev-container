@@ -5,6 +5,8 @@ import crypto from 'crypto'
 const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
+    maxAge: 1 * 24 * 60 * 60, // 1 days
+    updateAge: 1 * 60 * 60, // 1 hours
   },
   // see: https://next-auth.js.org/configuration/options#theme
   theme: {
