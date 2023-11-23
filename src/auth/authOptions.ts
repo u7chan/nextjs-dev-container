@@ -14,6 +14,7 @@ const authOptions: NextAuthOptions = {
     buttonText: '#0000ff', // Hex color code
   },
   callbacks: {
+    // Redirect if authenticated with `/api/auth/signin`
     redirect: ({ baseUrl }) => {
       return `${baseUrl}/starred`
     },
