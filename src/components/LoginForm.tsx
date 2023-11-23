@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Button from '@mui/material/Button'
@@ -12,18 +12,21 @@ import Box from '@mui/material/Box'
 import FormHelperText from '@mui/material/FormHelperText'
 
 export default function LoginForm() {
-  const [errorText, setErrorText] = useState('')
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [formValues, setFormValues] = useState<{
+    email: string
+    password: string
+  }>({ email: '', password: '' })
+  const [errorText, setErrorText] = useState('')
+  const invalid = useMemo(() => !(formValues.email && formValues.password), [formValues])
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const data = {
-      email: formData.get('email'),
-      password: formData.get('password'),
-    }
+    setLoading(true)
     signIn('credentials', {
       redirect: false,
-      ...data,
+      ...formValues,
     })
       .then((res) => {
         if (!res || res?.error) {
@@ -36,6 +39,7 @@ export default function LoginForm() {
         console.error(e)
         setErrorText(`Unhandled error: ${e.message}`)
       })
+      .finally(() => setLoading(false))
   }
   return (
     <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -48,6 +52,8 @@ export default function LoginForm() {
         name='email'
         autoComplete='email'
         autoFocus
+        onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
+        disabled={loading}
       />
       <TextField
         margin='normal'
@@ -58,10 +64,15 @@ export default function LoginForm() {
         type='password'
         id='password'
         autoComplete='current-password'
+        onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
+        disabled={loading}
       />
-      <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
+      <FormControlLabel
+        control={<Checkbox value='remember' color='primary' disabled={loading} />}
+        label='Remember me'
+      />
       <FormHelperText error={true}>{errorText}</FormHelperText>
-      <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+      <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }} disabled={invalid || loading}>
         Log in
       </Button>
       <Grid container>
