@@ -1,6 +1,6 @@
 'use client'
 import ThemeRegistry from '@/themes/ThemeRegistry'
-import { SessionProvider } from '@/auth/SessionProvider'
+import { SessionProvider } from 'next-auth/react'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

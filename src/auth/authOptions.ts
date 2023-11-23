@@ -1,7 +1,14 @@
-import type { NextAuthOptions, User } from 'next-auth'
+import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import crypto from 'crypto'
-import { UserSession } from './UserSession'
+
+export type UserSession = {
+  id: string
+  companyId: string
+  name: string
+  email: string
+  image?: string
+}
 
 const authOptions: NextAuthOptions = {
   session: {
