@@ -21,7 +21,7 @@ export default async function Page() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Sign in
+          Log in to your account
         </Typography>
         <LoginForm />
       </Box>

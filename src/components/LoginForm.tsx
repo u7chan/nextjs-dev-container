@@ -61,7 +61,7 @@ export default function LoginForm() {
       <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
       <FormHelperText error={true}>{errorText}</FormHelperText>
       <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-        Sign In
+        Log in
       </Button>
       <Grid container>
         <Grid item xs>
