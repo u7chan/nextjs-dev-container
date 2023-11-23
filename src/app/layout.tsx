@@ -1,8 +1,8 @@
-import * as React from 'react'
+'use client'
 import ThemeRegistry from '@/themes/ThemeRegistry'
 import { SessionProvider } from '@/auth/SessionProvider'
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
       <body>

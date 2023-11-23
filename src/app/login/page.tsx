@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { redirect } from 'next/navigation'
 import Avatar from '@mui/material/Avatar'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -6,7 +5,7 @@ import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import SigninForm from '@/components/SigninForm'
+import LoginForm from '@/components/LoginForm'
 import Copyright from '@/components/Copyright'
 import { getUserSession } from '@/auth/getUserSession'
 
@@ -32,7 +31,7 @@ export default async function Page() {
         <Typography component='h1' variant='h5'>
           Sign in
         </Typography>
-        <SigninForm />
+        <LoginForm />
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>

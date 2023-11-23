@@ -1,5 +1,5 @@
 'use client'
-import * as React from 'react'
+import { useState, Fragment } from 'react'
 import createCache from '@emotion/cache'
 import { useServerInsertedHTML } from 'next/navigation'
 import { CacheProvider as DefaultCacheProvider } from '@emotion/react'
@@ -17,7 +17,7 @@ export type NextAppDirEmotionCacheProviderProps = {
 export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionCacheProviderProps) {
   const { options, CacheProvider = DefaultCacheProvider, children } = props
 
-  const [registry] = React.useState(() => {
+  const [registry] = useState(() => {
     const cache = createCache(options)
     cache.compat = true
     const prevInsert = cache.insert
@@ -67,7 +67,7 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
     })
 
     return (
-      <React.Fragment>
+      <Fragment>
         {globals.map(({ name, style }) => (
           <style
             key={name}
@@ -83,7 +83,7 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
             dangerouslySetInnerHTML={{ __html: styles }}
           />
         )}
-      </React.Fragment>
+      </Fragment>
     )
   })
 

@@ -1,11 +1,11 @@
 'use client'
-import * as React from 'react'
+import { useEffect} from 'react'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 export default function Page() {
   const router = useRouter()
-  React.useEffect(() => {
+  useEffect(() => {
     signOut()
     router.push('/signin')
   }, [router])

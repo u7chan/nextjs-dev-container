@@ -1,6 +1,6 @@
 'use client'
-import * as React from 'react'
-import { type SignInResponse, signIn } from 'next-auth/react'
+import { useState } from 'react'
+import {  signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
@@ -11,8 +11,8 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import FormHelperText from '@mui/material/FormHelperText'
 
-export default function SigninForm() {
-  const [errorText, setErrorText] = React.useState('')
+export default function LoginForm() {
+  const [errorText, setErrorText] = useState('')
   const router = useRouter()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
