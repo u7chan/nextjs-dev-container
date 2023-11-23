@@ -4,9 +4,9 @@ import crypto from 'crypto'
 
 const authOptions: NextAuthOptions = {
   session: {
-    strategy: 'jwt',
-    maxAge: 1 * 24 * 60 * 60, // 1 days
-    updateAge: 1 * 60 * 60, // 1 hours
+    strategy: 'jwt', // "jwt" | "database"
+    maxAge: 1 * 24 * 60 * 60, // 1 days, Session expires
+    updateAge: 1 * 60 * 60, // 1 hours, Frequency of writing to database
   },
   // see: https://next-auth.js.org/configuration/options#theme
   theme: {
@@ -31,8 +31,9 @@ const authOptions: NextAuthOptions = {
         },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, _req) {
+      async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
+        await new Promise<void>((resolve) => setTimeout(() => resolve(), 2000)) // delay
         if (!(credentials.email === 'test@example.com' && credentials.password === 'hoge')) return null
         const user: User = {
           id: crypto.randomUUID(),
