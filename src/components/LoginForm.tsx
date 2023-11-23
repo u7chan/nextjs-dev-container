@@ -10,6 +10,7 @@ import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import FormHelperText from '@mui/material/FormHelperText'
+import CircularProgress from '@mui/material/CircularProgress'
 
 export default function LoginForm() {
   const router = useRouter()
@@ -72,8 +73,14 @@ export default function LoginForm() {
         label='Remember me'
       />
       <FormHelperText error={true}>{errorText}</FormHelperText>
-      <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }} disabled={invalid || loading}>
-        Log in
+      <Button
+        type='submit'
+        fullWidth
+        variant='contained'
+        sx={{ mt: 3, mb: 2, height: 40 }}
+        disabled={invalid || loading}
+      >
+        {loading ? <CircularProgress thickness={5} size={20} /> : <> Log in</>}
       </Button>
       <Grid container>
         <Grid item xs>
