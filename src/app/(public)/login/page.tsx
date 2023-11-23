@@ -1,5 +1,4 @@
 import Avatar from '@mui/material/Avatar'
-import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
@@ -10,7 +9,6 @@ import Copyright from '@/components/Copyright'
 export default async function Page() {
   return (
     <Container component='main' maxWidth='xs'>
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
