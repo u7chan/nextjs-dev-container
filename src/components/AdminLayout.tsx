@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import AppBar from '@mui/material/AppBar'
@@ -47,7 +47,7 @@ const PLACEHOLDER_LINKS = [
   },
 ]
 
-function ListItemButton({ href, onClick, children }: { href: string; onClick?: () => void; children: ReactNode }) {
+function ListItemButton({ href, onClick, children }: PropsWithChildren<{ href: string; onClick?: () => void }>) {
   return href ? (
     <MuiListItemButton component={Link} href={href}>
       {children}
@@ -57,7 +57,7 @@ function ListItemButton({ href, onClick, children }: { href: string; onClick?: (
   )
 }
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default function AdminLayout({ children }: PropsWithChildren) {
   return (
     <>
       <AppBar position='fixed' sx={{ zIndex: 2000 }}>
