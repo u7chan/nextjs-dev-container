@@ -3,6 +3,15 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import crypto from 'crypto'
 
 const authOptions: NextAuthOptions = {
+  // see: https://next-auth.js.org/configuration/pages
+  // Disable default pages
+  pages: {
+    signIn: '/', // default: /api/auth/signin
+    signOut: '/', // default: /api/auth/signout
+    error: '/', // default: /api/auth/error
+    verifyRequest: '/', // default: /api/auth/verify-request
+    newUser: '/', // default: /api/auth/new-user
+  },
   session: {
     strategy: 'jwt', // "jwt" | "database"
     maxAge: 1 * 24 * 60 * 60, // 1 days, Session expires

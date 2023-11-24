@@ -1,3 +1,6 @@
+'use client'
+import { ReactNode } from 'react'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -7,7 +10,7 @@ import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
+import MuiListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import DashboardIcon from '@mui/icons-material/Dashboard'
@@ -34,10 +37,27 @@ const LINKS = [
 const PLACEHOLDER_LINKS = [
   { text: 'Settings', href: '/', icon: SettingsIcon },
   { text: 'Support', href: '/', icon: SupportIcon },
-  { text: 'Logout', href: '/api/auth/signout', icon: LogoutIcon },
+  {
+    text: 'Logout',
+    href: '',
+    icon: LogoutIcon,
+    onClick: () => {
+      signOut({ redirect: true })
+    },
+  },
 ]
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+function ListItemButton({ href, onClick, children }: { href: string; onClick?: () => void; children: ReactNode }) {
+  return href ? (
+    <MuiListItemButton component={Link} href={href}>
+      {children}
+    </MuiListItemButton>
+  ) : (
+    <MuiListItemButton onClick={onClick}>{children}</MuiListItemButton>
+  )
+}
+
+export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <AppBar position='fixed' sx={{ zIndex: 2000 }}>
@@ -66,21 +86,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <Divider />
         <List>
           {LINKS.map(({ text, href, icon: Icon }, index) => (
-            <ListItem key={`${index}_${href}`} disablePadding>
-              <ListItemButton component={Link} href={href}>
+            <ListItem key={`${index}_${text}`} disablePadding>
+              <MuiListItemButton component={Link} href={href}>
                 <ListItemIcon>
                   <Icon />
                 </ListItemIcon>
                 <ListItemText primary={text} />
-              </ListItemButton>
+              </MuiListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider sx={{ mt: 'auto' }} />
         <List>
-          {PLACEHOLDER_LINKS.map(({ text, href, icon: Icon }, index) => (
-            <ListItem key={`${index}_${href}`} disablePadding>
-              <ListItemButton component={Link} href={href}>
+          {PLACEHOLDER_LINKS.map(({ text, href, onClick, icon: Icon }, index) => (
+            <ListItem key={`${index}_${text}`} disablePadding>
+              <ListItemButton href={href} onClick={onClick}>
                 <ListItemIcon>
                   <Icon />
                 </ListItemIcon>

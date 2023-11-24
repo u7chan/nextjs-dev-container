@@ -8,12 +8,7 @@ export const config = {
 }
 
 export default withAuth({
-  // see: https://next-auth.js.org/configuration/pages
   pages: {
-    signIn: '/login', // http://localhost:3000/api/auth/signin
-    //signOut: '', // http://localhost:3000/api/auth/signout
-    //error: '', // http://localhost:3000/api/auth/error
-    //verifyRequest: '', //  bhttp://localhost:3000/api/auth/verify-request
-    //newUser: '', // http://localhost:3000/api/auth/new-user
+    signIn: '/login',
   },
 })
