@@ -20,6 +20,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist'
 import SettingsIcon from '@mui/icons-material/Settings'
 import SupportIcon from '@mui/icons-material/Support'
 import LogoutIcon from '@mui/icons-material/Logout'
+import { ListItemButton } from './ListItemButton'
 
 export const metadata = {
   title: 'Next.js App Router + Material UI v5',
@@ -46,16 +47,6 @@ const PLACEHOLDER_LINKS = [
     },
   },
 ]
-
-function ListItemButton({ href, onClick, children }: PropsWithChildren<{ href: string; onClick?: () => void }>) {
-  return href ? (
-    <MuiListItemButton component={Link} href={href}>
-      {children}
-    </MuiListItemButton>
-  ) : (
-    <MuiListItemButton onClick={onClick}>{children}</MuiListItemButton>
-  )
-}
 
 export default function AdminLayout({ children }: PropsWithChildren) {
   return (
