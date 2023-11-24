@@ -20,7 +20,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist'
 import SettingsIcon from '@mui/icons-material/Settings'
 import SupportIcon from '@mui/icons-material/Support'
 import LogoutIcon from '@mui/icons-material/Logout'
-import { ListItemButton } from './ListItemButton'
+import ListItemButton from './ListItemButton'
 
 export const metadata = {
   title: 'Next.js App Router + Material UI v5',
