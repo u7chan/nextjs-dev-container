@@ -1,7 +1,7 @@
 'use client'
-import { useState, useMemo, FormEvent } from 'react'
+import { useState, useMemo, useEffect, FormEvent } from 'react'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
@@ -19,6 +19,7 @@ import Copyright from '@/components/Copyright'
 
 export default function Page() {
   const router = useRouter()
+  const { size } = useSearchParams()
   const [loading, setLoading] = useState(false)
   const [formValues, setFormValues] = useState<{
     email: string
@@ -26,6 +27,12 @@ export default function Page() {
   }>({ email: '', password: '' })
   const [errorText, setErrorText] = useState('')
   const invalid = useMemo(() => !(formValues.email && formValues.password), [formValues])
+
+  useEffect(() => {
+    if (size > 0) {
+      router.replace('/login')
+    }
+  }, [size, router])
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
