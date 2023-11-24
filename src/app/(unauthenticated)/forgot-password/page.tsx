@@ -64,7 +64,13 @@ export default function Page() {
             onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
             disabled={loading}
           />
-          <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }} disabled={invalid || loading}>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2, height: 40 }}
+            disabled={invalid || loading}
+          >
             {loading ? <CircularProgress thickness={5} size={20} /> : <>Send</>}
           </Button>
         </Box>
