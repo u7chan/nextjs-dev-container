@@ -1,5 +1,5 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, FormEvent } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Button from '@mui/material/Button'
@@ -22,7 +22,7 @@ export default function LoginForm() {
   const [errorText, setErrorText] = useState('')
   const invalid = useMemo(() => !(formValues.email && formValues.password), [formValues])
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setLoading(true)
     signIn('credentials', {
@@ -80,7 +80,7 @@ export default function LoginForm() {
         sx={{ mt: 3, mb: 2, height: 40 }}
         disabled={invalid || loading}
       >
-        {loading ? <CircularProgress thickness={5} size={20} /> : <> Log in</>}
+        {loading ? <CircularProgress thickness={5} size={20} /> : <>Log in</>}
       </Button>
       <Grid container>
         <Grid item xs>

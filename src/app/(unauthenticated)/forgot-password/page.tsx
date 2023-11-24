@@ -1,18 +1,36 @@
 'use client'
-import { useState, FormEvent } from 'react'
+import { useState, useMemo, FormEvent } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Copyright from '@/components/Copyright'
+import CircularProgress from '@mui/material/CircularProgress'
 import Link from '@mui/material/Link'
 
 export default function Page() {
   const [send, setSend] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [formValues, setFormValues] = useState<{
+    email: string
+  }>({ email: '' })
+  const invalid = useMemo(() => !formValues.email, [formValues])
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSend(true)
+    setLoading(true)
+    ;(async () => {
+      const result = await fetch('/api/forgot-password', {
+        method: 'POST',
+        headers: { contentType: 'application/json' },
+        body: JSON.stringify(formValues),
+        cache: 'no-store',
+      })
+      await result.json()
+    })()
+      .then(() => setSend(true))
+      .finally(() => setLoading(false))
   }
   return (
     <Container component='main' maxWidth='xs'>
@@ -43,9 +61,11 @@ export default function Page() {
             name='email'
             autoComplete='email'
             autoFocus
+            onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
+            disabled={loading}
           />
-          <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-            Send
+          <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }} disabled={invalid || loading}>
+            {loading ? <CircularProgress thickness={5} size={20} /> : <>Send</>}
           </Button>
         </Box>
       )}
