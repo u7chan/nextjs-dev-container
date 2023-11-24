@@ -9,7 +9,6 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
 import MuiListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
@@ -20,6 +19,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist'
 import SettingsIcon from '@mui/icons-material/Settings'
 import SupportIcon from '@mui/icons-material/Support'
 import LogoutIcon from '@mui/icons-material/Logout'
+import ListItem from './ListItem'
 import ListItemButton from './ListItemButton'
 
 export const metadata = {
@@ -36,8 +36,8 @@ const LINKS = [
 ]
 
 const PLACEHOLDER_LINKS = [
-  { text: 'Settings', href: '/', icon: SettingsIcon },
-  { text: 'Support', href: '/', icon: SupportIcon },
+  { text: 'Settings', href: '/settings', icon: SettingsIcon },
+  { text: 'Support', href: '/support', icon: SupportIcon },
   {
     text: 'Logout',
     href: '',
@@ -77,7 +77,7 @@ export default function AdminLayout({ children }: PropsWithChildren) {
         <Divider />
         <List>
           {LINKS.map(({ text, href, icon: Icon }, index) => (
-            <ListItem key={`${index}_${text}`} disablePadding>
+            <ListItem key={`${index}_${text}`} href={href}>
               <MuiListItemButton component={Link} href={href}>
                 <ListItemIcon>
                   <Icon />
@@ -90,7 +90,7 @@ export default function AdminLayout({ children }: PropsWithChildren) {
         <Divider sx={{ mt: 'auto' }} />
         <List>
           {PLACEHOLDER_LINKS.map(({ text, href, onClick, icon: Icon }, index) => (
-            <ListItem key={`${index}_${text}`} disablePadding>
+            <ListItem key={`${index}_${text}`} href={href}>
               <ListItemButton href={href} onClick={onClick}>
                 <ListItemIcon>
                   <Icon />

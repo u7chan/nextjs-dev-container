@@ -14,7 +14,7 @@ export default function Page() {
         }}
       >
         <Typography variant='h5' gutterBottom>
-          Tasks
+          Support
         </Typography>
       </Box>
     </Container>

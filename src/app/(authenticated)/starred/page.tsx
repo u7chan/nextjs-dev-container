@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 
-export default function StarredPage() {
+export default function Page() {
   const [me, setMe] = useState<{ name: string; email: string }>()
   useEffect(() => {
     ;(async () => {
@@ -25,7 +25,7 @@ export default function StarredPage() {
         }}
       >
         <Typography variant='h5' gutterBottom>
-          Starred Page
+          Starred
         </Typography>
         <Box>
           {me ? (
