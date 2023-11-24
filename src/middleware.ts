@@ -14,9 +14,9 @@ export default withAuth({
   },
 })
 
-// NOTE: middleware メソッドを定義すると next-auth の　middleware（認証）が機能しなくなる
+// NOTE: middleware と withAuth を併用する場合
 //
-// export function middleware(request: Request) {
+// export async function middleware(request: Request) {
 //   console.log('# middleware: ', request.url)
-//   NextResponse.next()
+//   return withAuth(request as NextRequestWithAuth)
 // }
