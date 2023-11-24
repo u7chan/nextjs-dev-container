@@ -6,7 +6,7 @@ const authOptions: NextAuthOptions = {
   // see: https://next-auth.js.org/configuration/pages
   // Disable default pages
   pages: {
-    signIn: '/', // default: /api/auth/signin
+    signIn: '/login', // default: /api/auth/signin
     signOut: '/', // default: /api/auth/signout
     error: '/', // default: /api/auth/error
     verifyRequest: '/', // default: /api/auth/verify-request
