@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
@@ -5,8 +6,12 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import LoginForm from '@/components/LoginForm'
 import Copyright from '@/components/Copyright'
+import { getUserSession } from '@/auth/getUserSession'
 
 export default async function Page() {
+  if (await getUserSession()) {
+    redirect('/')
+  }
   return (
     <Container component='main' maxWidth='xs'>
       <Box
