@@ -6,6 +6,7 @@
 - Next.js (App Router)
 - MUI
 - NextAuth
+- React Hook Form
 - Dev Container
 
 ## Setup
