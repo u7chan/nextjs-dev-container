@@ -1,5 +1,5 @@
 'use client'
-import { useState, useMemo, useEffect, FormEvent } from 'react'
+import { useState, useEffect } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Avatar from '@mui/material/Avatar'
@@ -8,16 +8,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
-// import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import FormHelperText from '@mui/material/FormHelperText'
 import CircularProgress from '@mui/material/CircularProgress'
-import Copyright from '@/components/Copyright'
 
+import Copyright from '@/components/Copyright'
 import Form from '@/components/Form'
+import FormState from '@/components/FormState'
 import TextField from '@/components/TextField'
 
 interface LoginForm {
@@ -38,24 +38,23 @@ export default function Page() {
   }, [size, router])
 
   const handleSubmit = (data: LoginForm) => {
-    console.log('#data', data)
-    // setLoading(true)
-    // signIn('credentials', {
-    //   redirect: false,
-    //   ...formValues,
-    // })
-    //   .then((res) => {
-    //     if (!res || res?.error) {
-    //       setErrorText('Authentication failed.')
-    //       return
-    //     }
-    //     router.push('/')
-    //   })
-    //   .catch((e) => {
-    //     console.error(e)
-    //     setErrorText(`Unhandled error: ${e.message}`)
-    //   })
-    //   .finally(() => setLoading(false))
+    setLoading(true)
+    signIn('credentials', {
+      redirect: false,
+      ...data,
+    })
+      .then((res) => {
+        if (!res || res?.error) {
+          setErrorText('Authentication failed.')
+          return
+        }
+        router.push('/')
+      })
+      .catch((e) => {
+        console.error(e)
+        setErrorText(`Unhandled error: ${e.message}`)
+      })
+      .finally(() => setLoading(false))
   }
   return (
     <Container component='main' maxWidth='xs'>
@@ -83,15 +82,27 @@ export default function Page() {
             autoComplete='current-password'
             disabled={loading}
           />
+          <FormControlLabel
+            control={<Checkbox value='remember' color='primary' disabled={loading} />}
+            label='Remember me'
+          />
+          <FormHelperText error={true}>{errorText}</FormHelperText>
+          <FormState>
+            {({ disabled }) => (
+              <>
+                <Button
+                  type='submit'
+                  fullWidth
+                  variant='contained'
+                  sx={{ mt: 3, mb: 2, height: 40 }}
+                  disabled={disabled || loading}
+                >
+                  {loading ? <CircularProgress thickness={5} size={20} /> : <>Log in</>}
+                </Button>
+              </>
+            )}
+          </FormState>
         </Form>
-        <FormControlLabel
-          control={<Checkbox value='remember' color='primary' disabled={loading} />}
-          label='Remember me'
-        />
-        <FormHelperText error={true}>{errorText}</FormHelperText>
-        <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2, height: 40 }} disabled={loading}>
-          {loading ? <CircularProgress thickness={5} size={20} /> : <>Log in</>}
-        </Button>
         <Grid container>
           <Grid item xs>
             <Link href='/forgot-password' variant='body2'>

@@ -1,7 +1,6 @@
 'use client'
 import MuiTextField from '@mui/material/TextField'
-import { useController, FieldValues, FieldPath } from 'react-hook-form'
-import { type FormChildrenProps } from './Form'
+import { useController, useFormContext, FieldValues, FieldPath } from 'react-hook-form'
 
 interface Props<T extends FieldValues> {
   name: FieldPath<T>
@@ -21,13 +20,9 @@ export default function TextField<T extends FieldValues>({
   autoFocus,
   required,
   disabled,
-  control,
-}: Props<T> & FormChildrenProps<T>) {
-  const {
-    field,
-    // fieldState: { invalid, isTouched, isDirty },
-    // formState: { touchedFields, dirtyFields },
-  } = useController({
+}: Props<T>) {
+  const { control } = useFormContext<T>()
+  const { field } = useController<T>({
     name,
     control,
     rules: { required },
