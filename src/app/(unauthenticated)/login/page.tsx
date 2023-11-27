@@ -1,5 +1,5 @@
 'use client'
-import { useState, useMemo, useEffect, FormEvent } from 'react'
+import { useState, useEffect } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Avatar from '@mui/material/Avatar'
@@ -8,25 +8,28 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import FormHelperText from '@mui/material/FormHelperText'
 import CircularProgress from '@mui/material/CircularProgress'
+
 import Copyright from '@/components/Copyright'
+import Form from '@/components/Form'
+import FormState from '@/components/FormState'
+import TextField from '@/components/TextField'
+
+interface LoginForm {
+  email: string
+  password: string
+}
 
 export default function Page() {
   const router = useRouter()
   const { size } = useSearchParams()
   const [loading, setLoading] = useState(false)
-  const [formValues, setFormValues] = useState<{
-    email: string
-    password: string
-  }>({ email: '', password: '' })
   const [errorText, setErrorText] = useState('')
-  const invalid = useMemo(() => !(formValues.email && formValues.password), [formValues])
 
   useEffect(() => {
     if (size > 0) {
@@ -34,12 +37,11 @@ export default function Page() {
     }
   }, [size, router])
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleSubmit = (data: LoginForm) => {
     setLoading(true)
     signIn('credentials', {
       redirect: false,
-      ...formValues,
+      ...data,
     })
       .then((res) => {
         if (!res || res?.error) {
@@ -70,29 +72,14 @@ export default function Page() {
         <Typography component='h1' variant='h5'>
           Log in to your account
         </Typography>
-        <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Form defaultValues={{ email: '', password: '' }} onSubmit={handleSubmit}>
+          <TextField name='email' label='Email Address' autoComplete='email' required autoFocus disabled={loading} />
           <TextField
-            margin='normal'
-            required
-            fullWidth
-            id='email'
-            label='Email Address'
-            name='email'
-            autoComplete='email'
-            autoFocus
-            onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
-            disabled={loading}
-          />
-          <TextField
-            margin='normal'
-            required
-            fullWidth
             name='password'
             label='Password'
+            required
             type='password'
-            id='password'
             autoComplete='current-password'
-            onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
             disabled={loading}
           />
           <FormControlLabel
@@ -100,28 +87,34 @@ export default function Page() {
             label='Remember me'
           />
           <FormHelperText error={true}>{errorText}</FormHelperText>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            sx={{ mt: 3, mb: 2, height: 40 }}
-            disabled={invalid || loading}
-          >
-            {loading ? <CircularProgress thickness={5} size={20} /> : <>Log in</>}
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href='/forgot-password' variant='body2'>
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href='#' variant='body2'>
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
+          <FormState>
+            {({ disabled }) => (
+              <>
+                <Button
+                  type='submit'
+                  fullWidth
+                  variant='contained'
+                  sx={{ mt: 3, mb: 2, height: 40 }}
+                  disabled={disabled || loading}
+                >
+                  {loading ? <CircularProgress thickness={5} size={20} /> : <>Log in</>}
+                </Button>
+              </>
+            )}
+          </FormState>
+        </Form>
+        <Grid container>
+          <Grid item xs>
+            <Link href='/forgot-password' variant='body2'>
+              Forgot password?
+            </Link>
           </Grid>
-        </Box>
+          <Grid item>
+            <Link href='#' variant='body2'>
+              {"Don't have an account? Sign Up"}
+            </Link>
+          </Grid>
+        </Grid>
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
